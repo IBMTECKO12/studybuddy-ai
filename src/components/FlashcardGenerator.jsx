@@ -34,72 +34,77 @@ export default function FlashcardGenerator({ flashcards }) {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <div 
-        className={`w-full max-w-md h-64 p-6 mb-6 rounded-xl shadow-md cursor-pointer transition-all duration-300 ${isFlipped ? 'bg-blue-50' : 'bg-white'}`}
-        onClick={() => setIsFlipped(!isFlipped)}
-      >
-        <div className="h-full flex flex-col justify-center items-center">
-          <h3 className="text-lg font-medium mb-2">
-            {isFlipped ? 'Answer' : 'Question'}
-          </h3>
-          <p className="text-center">
-            {isFlipped 
-              ? allFlashcards[currentIndex].answer 
-              : allFlashcards[currentIndex].question}
-          </p>
-        </div>
+    <div className="flex flex-col items-center p-4">
+      {/* Flashcards display */}
+      <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl mb-6">
+        {allFlashcards.length > 0 ? (
+          <div 
+            className={`relative w-full h-48 sm:h-64 md:h-72 rounded-xl shadow-md cursor-pointer transition-all duration-300 ${
+              isFlipped ? 'bg-blue-50' : 'bg-white'
+            }`}
+            onClick={() => setIsFlipped(!isFlipped)}
+          >
+            <div className="absolute inset-0 flex flex-col justify-center items-center p-6">
+              <h3 className="text-lg sm:text-xl font-medium mb-2 sm:mb-4">
+                {isFlipped ? 'Answer' : 'Question'}
+              </h3>
+              <p className="text-center text-sm sm:text-base">
+                {isFlipped 
+                  ? allFlashcards[currentIndex].answer 
+                  : allFlashcards[currentIndex].question}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="p-4 text-center text-gray-500">
+            No flashcards available. Upload content to generate some!
+          </div>
+        )}
       </div>
 
-      <div className="flex space-x-4 mb-6">
+      {/* Navigation controls */}
+      <div className="flex items-center justify-center gap-4 mb-6">
         <button 
           onClick={handlePrev}
-          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 text-sm sm:text-base"
         >
           Previous
         </button>
-        <span className="px-4 py-2">
+        <span className="px-4 py-2 text-sm sm:text-base">
           {currentIndex + 1} / {allFlashcards.length}
         </span>
         <button 
           onClick={handleNext}
-          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 text-sm sm:text-base"
         >
           Next
         </button>
       </div>
 
-      <div className="w-full max-w-md p-4 border rounded-lg">
-        <h3 className="font-medium mb-2">Add Your Own Flashcard</h3>
-        <form 
-          onSubmit={(e) => {
-            e.preventDefault();
-            const form = e.target;
-            addFlashcard(form.question.value, form.answer.value);
-            form.reset();
-          }}
-          className="space-y-3"
-        >
+      {/* Add new flashcard form */}
+      <div className="w-full max-w-md sm:max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-sm border">
+        <h3 className="font-medium mb-3 text-sm sm:text-base">Add Your Own Flashcard</h3>
+        <form onSubmit={addFlashcard} className="space-y-3">
           <div>
-            <label className="block text-sm font-medium mb-1">Question</label>
+            <label className="block text-sm sm:text-base font-medium mb-1">Question</label>
             <input
               name="question"
               required
-              className="w-full p-2 border rounded"
+              className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Answer</label>
+            <label className="block text-sm sm:text-base font-medium mb-1">Answer</label>
             <textarea
               name="answer"
               required
               rows="3"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base"
             />
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base"
           >
             Add Flashcard
           </button>

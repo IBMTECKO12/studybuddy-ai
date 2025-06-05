@@ -40,41 +40,42 @@ export default function SpacedRepetition() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="p-4 border rounded-lg shadow-sm">
-        <h2 className="text-lg font-medium mb-4">Review Items</h2>
+   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4">
+      {/* Review items section */}
+      <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">Review Items</h2>
         
         {dueItems.length > 0 ? (
-          <div className="space-y-4">
-            <div className="p-4 bg-white rounded-lg shadow">
-              <h3 className="font-medium mb-2">Question:</h3>
-              <p className="mb-4">{dueItems[currentItemIndex]?.question}</p>
+          <div className="space-y-6">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow border">
+              <h3 className="font-medium mb-3 text-sm sm:text-base">Question:</h3>
+              <p className="mb-4 text-sm sm:text-base">{dueItems[currentItemIndex]?.question}</p>
               
               {showAnswer && (
                 <>
-                  <h3 className="font-medium mb-2">Answer:</h3>
-                  <p className="mb-4">{dueItems[currentItemIndex]?.answer}</p>
+                  <h3 className="font-medium mb-3 text-sm sm:text-base">Answer:</h3>
+                  <p className="mb-4 text-sm sm:text-base">{dueItems[currentItemIndex]?.answer}</p>
                 </>
               )}
               
-              <div className="flex space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {!showAnswer ? (
                   <button
                     onClick={() => setShowAnswer(true)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm sm:text-base"
                   >
                     Show Answer
                   </button>
                 ) : (
                   <>
-                    <p className="self-center text-sm text-gray-600 mr-2">
+                    <span className="text-sm sm:text-base text-gray-600 mr-2">
                       How well did you know this?
-                    </p>
+                    </span>
                     {[1, 2, 3, 4, 5].map((rating) => (
                       <button
                         key={rating}
                         onClick={() => handleQualityRating(rating)}
-                        className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                        className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300 text-sm sm:text-base"
                       >
                         {rating}
                       </button>
@@ -84,41 +85,44 @@ export default function SpacedRepetition() {
               </div>
             </div>
             
-            <p className="text-sm text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Item {currentItemIndex + 1} of {dueItems.length} due for review
             </p>
           </div>
         ) : (
-          <p className="text-gray-500">No items due for review right now!</p>
+          <p className="text-gray-500 text-sm sm:text-base">
+            No items due for review right now!
+          </p>
         )}
       </div>
 
-      <div className="p-4 border rounded-lg shadow-sm">
-        <h2 className="text-lg font-medium mb-4">Add New Item</h2>
-        <form onSubmit={handleAddItem} className="space-y-3">
+      {/* Add new item section */}
+      <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">Add New Item</h2>
+        <form onSubmit={handleAddItem} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Question</label>
+            <label className="block text-sm sm:text-base font-medium mb-1">Question</label>
             <input
               type="text"
               value={newItem.question}
               onChange={(e) => setNewItem({...newItem, question: e.target.value})}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Answer</label>
+            <label className="block text-sm sm:text-base font-medium mb-1">Answer</label>
             <textarea
               value={newItem.answer}
               onChange={(e) => setNewItem({...newItem, answer: e.target.value})}
               rows="3"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 sm:p-3 border rounded-lg text-sm sm:text-base"
               required
             />
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+            className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm sm:text-base"
           >
             Add to Review Schedule
           </button>

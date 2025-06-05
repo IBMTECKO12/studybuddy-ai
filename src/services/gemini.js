@@ -42,19 +42,13 @@ export const generateContent = async (prompt, content, type = "flashcards") => {
     
     switch (type) {
       case "flashcards":
-        fullPrompt = `Generate 5 flashcards in JSON format from the following content. 
+        fullPrompt = `Generate 10 flashcards in JSON format from the following content. 
         Each flashcard should have a 'question' and 'answer' field. 
         Return only the JSON array without any additional text or markdown.
         Content: ${content}`;
         break;
       case "summary":
-        fullPrompt = `Generate a concise summary (about 150 words) of the following content:
-        ${content}`;
-        break;
-      case "quiz":
-        fullPrompt = `Generate a quiz with 5 questions in JSON format from the following content.
-        Each question should have 'question', 'options' (array), and 'correctAnswer' fields.
-        Return only the JSON array without any additional text or markdown.
+        fullPrompt = `Generate a summary in about 250 words of the following content.
         Content: ${content}`;
         break;
       default:
